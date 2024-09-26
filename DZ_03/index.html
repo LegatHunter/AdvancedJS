@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="push">
+      <h1>Товары и отзывы</h1>
+      <input type="text" class="input" placeholder="Введите название товара" />
+      <textarea
+        class="comment"
+        cols="50"
+        rows="10"
+        placeholder="Введите отзыв"></textarea>
+      <div class="buttons">
+        <button class="btn">Добавить товар в массив</button>
+        <button class="save_btn">Сохраннить массив в LocalStorage</button>
+      </div>
+      <button class="nextStep">Перейти к отзывам</button>
+    </div>
+    <div class="output hidden">
+      <h1>Продукты</h1>
+      <div class="productList">
+
+      </div>
+      <button class="nextStep">Назад</button>
+    </div>
+    <style>
+      .push, .output {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+      }
+      .buttons{
+        display: flex;
+        gap: 30px;
+      }
+      .btn, .save_btn, .nextStep {
+        width: 200px;
+        height: 60px;
+        background-color: rgb(55, 148, 235);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .nextStep {
+        background-color: rgb(132, 233, 177);
+      }
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 16px;
+        color: slategray;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </body>
+</html>

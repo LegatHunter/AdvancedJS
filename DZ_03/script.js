@@ -9,6 +9,10 @@ const productList = document.querySelector(".productList");
 let local = localStorage.getItem("comment");
 const items = {};
 
+if (local) {
+  product(local);
+}
+
 button.addEventListener("click", () => {
   if (input.value === "" || textarea.value === "") {
     alert("Заполните все поля");
@@ -27,7 +31,9 @@ saveBtn.addEventListener("click", () => {
   if (Object.keys(items).length === 0) {
     alert("Сначала добавьте товар");
   } else {
-    localStorage.setItem("comment", JSON.stringify(items));
+    local = JSON.stringify(items);
+    localStorage.setItem("comment", local);
+    product(local);
   }
 });
 
@@ -56,7 +62,7 @@ function product(local) {
       productList.appendChild(prod);
       prod.addEventListener("click", () => {
         if (localParse[key].length > 0) {
-          if (prod.querySelectorAll('.comment1').length === 0) {
+          if (prod.querySelectorAll(".comment1").length === 0) {
             localParse[key].forEach((com) => {
               const text = document.createElement("p");
               text.classList.add("comment1");
@@ -64,7 +70,9 @@ function product(local) {
               prod.appendChild(text);
             });
           } else {
-            prod.querySelectorAll('.comment1').forEach(comment => comment.remove());
+            prod
+              .querySelectorAll(".comment1")
+              .forEach((comment) => comment.remove());
           }
         }
       });

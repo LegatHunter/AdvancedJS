@@ -55,12 +55,18 @@ function product(local) {
       prod.textContent = `*Товар: ${key}`;
       productList.appendChild(prod);
       prod.addEventListener("click", () => {
-        localParse[key].forEach((com, idx) => {
-          if ()
-          const text = document.createElement("p");
-          text.textContent = `Комментарий:${com}`;
-          prod.appendChild(text);
-        });
+        if (localParse[key].length > 0) {
+          if (prod.querySelectorAll('.comment1').length === 0) {
+            localParse[key].forEach((com) => {
+              const text = document.createElement("p");
+              text.classList.add("comment1");
+              text.textContent = `Комментарий: ${com}`;
+              prod.appendChild(text);
+            });
+          } else {
+            prod.querySelectorAll('.comment1').forEach(comment => comment.remove());
+          }
+        }
       });
     }
   }

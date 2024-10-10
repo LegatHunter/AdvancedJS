@@ -6,24 +6,33 @@ const saveBtn = document.querySelector(".save_btn");
 const nextStep = document.querySelectorAll(".nextStep");
 const output = document.querySelector(".output");
 const productList = document.querySelector(".productList");
-let local = localStorage.getItem("comment");
+let localData = localStorage.getItem("comment")
+  ? JSON.parse(localStorage.getItem("comment"))
+  : {};
 const items = {};
 
-if (local) {
-  product(local);
+if (localData) {
+  product(localData);
 }
 
 button.addEventListener("click", () => {
   if (input.value === "" || textarea.value === "") {
     alert("Заполните все поля");
   } else {
-    if (!(input.value in items)) {
-      items[input.value] = [];
+    if (!(input.value in localData)) {
+      localData[input.value] = [];
     }
-    items[input.value].push(textarea.value);
-    console.log(items);
+    localData[input.value].push(textarea.value);
+
+    // Обновляем LocalStorage с новыми данными
+    localStorage.setItem("comment", JSON.stringify(localData));
+
+    // Очищаем поля ввода
     input.value = "";
     textarea.value = "";
+
+    // Обновляем отображение продуктов
+    product(localData); // Передаем обновленный объект
   }
 });
 
@@ -31,24 +40,24 @@ saveBtn.addEventListener("click", () => {
   if (Object.keys(items).length === 0) {
     alert("Сначала добавьте товар");
   } else {
-    local = JSON.stringify(items);
-    localStorage.setItem("comment", local);
-    product(local);
+    localData = JSON.stringify(items);
+    localStorage.setItem("comment", localData);
+    product(localData);
   }
 });
 
 nextStep.forEach((button) => {
   button.addEventListener("click", () => {
-    push.classList.toggle("hidden");
-    output.classList.toggle("hidden");
-    if (push.classList.contains("hidden")) {
-      product(local);
-    }
+  push.classList.toggle("hidden");
+  output.classList.toggle("hidden");
+  if (push.classList.contains("hidden")) {
+  product(localData); // Передаем объект для загрузки
+  }
   });
-});
+  });
 
-function product(local) {
-  const localParse = JSON.parse(local);
+function product(localData) {
+  const localParse = localData;
   productList.innerHTML = "";
 
   if (!localParse || Object.keys(localParse).length === 0) {
